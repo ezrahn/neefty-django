@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container span9">
+<p>Hi {{ user }}</p>
+<a href="{% url 'urlencode' %}">URL encode</a>
+</div>
+
+<div class="test">
+<form action="{% url 'add_dimension' %}">
+    <input name="name"></input>
+    <input type="submit">submit</input>
+</form>
+</div>
+{% endblock body %}

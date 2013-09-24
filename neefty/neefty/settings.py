@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'social.apps.django_app.default',
+    'neefty'
 )
 
 LOGIN_URL = '/'

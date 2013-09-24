@@ -1,15 +1,37 @@
+import json, logging
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
+from neefty.models import Dimension, ListItem
+from neefty.forms import DimensionForm, ListItemForm
+
+logger = logging.getLogger(__name__)
 
 def home(request):
     context = {
         'user' : request.user.username
         }
-    return render_to_response("webtools/home.html",context, context_instance=RequestContext(request))
+    return render_to_response("main/home.html",context, context_instance=RequestContext(request))
+                
+@login_required()
+def addDimension(request):
+    data = {'status' : 'ok'}
+    if request.method == 'POST':
+        form = DimensionForm(request.POST);
+        form.user = request.user
+        if form.is_valid():
+            form.save();
+            data['message' : '%s dimension Added' % form.name]
+        else:
+            data['status' : 'error']
+            data['message' : 'Something went wrong.']
+            
+    return HttpResponse(json.dumps(data), 'application/json')   
                 
 def urlencode(request):
     context = {}
