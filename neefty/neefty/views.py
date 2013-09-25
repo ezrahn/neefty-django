@@ -21,7 +21,7 @@ def home(request):
     return render_to_response("main/home.html",context, context_instance=RequestContext(request))
                 
 @login_required()
-def addDimension(request):
+def add_dimension(request):
     data = {'status' : 'ok'}
     try:
         if request.method == 'POST':
@@ -30,6 +30,26 @@ def addDimension(request):
             d.user = request.user
             d.save()
             data['message' : '%s dimension Added' % d.name]
+        else:
+            data['status'] = 'error'
+            data['message'] = 'Operation not allowed'
+    except Exception as e:
+        logger.exception(e)
+        data['status'] = 'error'
+        data['message'] = str(e)
+                    
+    return HttpResponse(json.dumps(data), 'application/json')   
+                
+@login_required()
+def add_list_item(request):
+    data = {'status' : 'ok'}
+    try:
+        if request.method == 'POST':
+            i = ListItem()
+            i.name = request.POST.get('name')
+            i.dimension_id = request.POST.get('di')
+            i.save()
+            data['message' : '%s li added' % d.name]
         else:
             data['status'] = 'error'
             data['message'] = 'Operation not allowed'

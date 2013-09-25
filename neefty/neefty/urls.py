@@ -12,7 +12,8 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'neefty.views.logout_view', name='logout'),
     url(r'^urlencode/$', 'neefty.views.urlencode', name='urlencode'),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url('^dimension/add/$', 'neefty.views.addDimension', name='add_dimension'),
+    url('^dimension/add/$', 'neefty.views.add_dimension', name='add_dimension'),
+    url('^item/add/$', 'neefty.views.add_list_item', name='add_list_item'),
     
     # url(r'^neefty/', include('neefty.foo.urls')),
 

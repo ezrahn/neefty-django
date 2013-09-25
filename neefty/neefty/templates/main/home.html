@@ -11,5 +11,12 @@
      {% csrf_token %} 
     <input type="submit">submit</input>
 </form>
+
+<form action="{% url 'add_list_item' %}" method="POST">
+    <input type="text" name="name"></input>
+    <input type="hidden" name="di" value="2"></input>
+     {% csrf_token %} 
+    <input type="submit">submit</input>
+</form>
 </div>
 {% endblock body %}
