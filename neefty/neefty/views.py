@@ -29,7 +29,7 @@ def add_dimension(request):
             d.name = request.POST.get('name')
             d.user = request.user
             d.save()
-            data['message' : '%s dimension Added' % d.name]
+            data['message'] = '%s dimension Added' % d.name
         else:
             data['status'] = 'error'
             data['message'] = 'Operation not allowed'
@@ -49,7 +49,7 @@ def add_list_item(request):
             i.name = request.POST.get('name')
             i.dimension_id = request.POST.get('di')
             i.save()
-            data['message' : '%s li added' % d.name]
+            data['message'] =  '%s li added' % i.name
         else:
             data['status'] = 'error'
             data['message'] = 'Operation not allowed'
