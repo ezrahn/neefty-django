@@ -6,8 +6,9 @@
 </div>
 
 <div class="test">
-<form action="{% url 'add_dimension' %}">
+<form action="{% url 'add_dimension' %}" method="POST">
     <input name="name"></input>
+     {% csrf_token %} 
     <input type="submit">submit</input>
 </form>
 </div>

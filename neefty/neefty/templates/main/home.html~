@@ -1,7 +1,0 @@
-{% extends 'base.html' %}
-{% block body %}
-<div class="container span9">
-<p>Hi {{ user }}</p>
-<a href="{% url 'urlencode' %}">URL encode</a>
-</div>
-{% endblock body %}

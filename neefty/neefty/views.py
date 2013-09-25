@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.forms.models import inlineformset_factory
+from django.contrib.auth.models import User
 
 from neefty.models import Dimension, ListItem
 from neefty.forms import DimensionForm, ListItemForm
@@ -21,16 +23,21 @@ def home(request):
 @login_required()
 def addDimension(request):
     data = {'status' : 'ok'}
-    if request.method == 'POST':
-        form = DimensionForm(request.POST);
-        form.user = request.user
-        if form.is_valid():
-            form.save();
-            data['message' : '%s dimension Added' % form.name]
+    try:
+        if request.method == 'POST':
+            d = Dimension()
+            d.name = request.POST.get('name')
+            d.user = request.user
+            d.save()
+            data['message' : '%s dimension Added' % d.name]
         else:
-            data['status' : 'error']
-            data['message' : 'Something went wrong.']
-            
+            data['status'] = 'error'
+            data['message'] = 'Operation not allowed'
+    except Exception as e:
+        logger.exception(e)
+        data['status'] = 'error'
+        data['message'] = str(e)
+                    
     return HttpResponse(json.dumps(data), 'application/json')   
                 
 def urlencode(request):
